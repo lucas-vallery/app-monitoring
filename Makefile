@@ -1,36 +1,37 @@
-# Define the compiler 
-CXX = g++ 
+# Define the compiler
+CXX = g++
 
-# Define the flags for the compiler 
-CXXFLAGS = `` 
+# Define the flags for the compiler
+CXXFLAGS = -Ihdr
 
-# Define the target executable 
-TARGET = app-monitoring
+# Define the build directory variable 
+BUILD_DIR = build
 
-# Define the source files 
-SRCS = main.cpp 
+# Define the target executable
+TARGET = $(BUILD_DIR)/app-monitoring
 
-# Define the build directory
-BUILD_DIR = ./build
+# Define the source and header files
+SRCS = $(wildcard *.cpp)
+HDRS = $(wildcard *.h)
 
-# Create the build directory if it doesn't exist 
-$(BUILD_DIR): 
+# Define the object files
+OBJS = $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+
+# Default target
+all: $(TARGET)
+
+# Ensure the build directory exists
+$(BUILD_DIR):
 	@test -d $(BUILD_DIR) || mkdir -p $(BUILD_DIR)
 
-# Define the object files 
-OBJS = $(BUILD_DIR)/$(SRCS:.cpp=.o) 
+# Link the object files to create the executable
+$(TARGET): $(OBJS)
+	$(CXX) -o $@ $(OBJS) $(CXXFLAGS)
 
-# Default target 
-all: $(BUILD_DIR) $(TARGET) 
+# Compile the source files into object files
+build/%.o: %.cpp | $(BUILD_DIR)
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-# Link the object files to create the executable 
-$(TARGET): $(OBJS) 
-	$(CXX) -o $(BUILD_DIR)/$(TARGET) $(OBJS) $(CXXFLAGS) 
-
-# Compile the source files into object files 
-$(BUILD_DIR)/%.o: %.cpp
-	$(CXX) -c $< -o $@ $(CXXFLAGS) 
-	
-# Clean the build directory 
-clean: 
-	rm -f $(OBJS) $(BUILD_DIR)/$(TARGET)
+# Clean the build directory
+clean:
+	rm -rf $(BUILD_DIR)
