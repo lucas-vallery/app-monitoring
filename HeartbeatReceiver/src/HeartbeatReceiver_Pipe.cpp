@@ -1,5 +1,5 @@
 /* Header Include */
-#include "../hdr/RcvInterface_Pipe.h"
+#include "../hdr/HeartbeatReceiver_Pipe.h"
 
 /* Library Includes */
 #include <fcntl.h>
@@ -9,15 +9,15 @@
 #include <cstdlib>
 
 /* Constructor */
-RcvInterface_Pipe::RcvInterface_Pipe(std::string* p_pPipePath) {
+HeartbeatReceiver_Pipe::HeartbeatReceiver_Pipe(std::string* p_pPipePath) {
     OpenPipe(p_pPipePath);
 }
 
 /* Destructor */
-RcvInterface_Pipe::~RcvInterface_Pipe() {
-    int l_ret = -1, l_fdCloseTry = 0;
+HeartbeatReceiver_Pipe::~HeartbeatReceiver_Pipe() {
+    int l_ret = -1, l_fdCloseTries = 0;
     
-    while(l_ret == -1 && l_fdCloseTry < 3) {
+    while(l_ret == -1 && l_fdCloseTries < 3) {
         l_ret = close(_pipeFd);
         if(errno == EINTR) {
             continue;
@@ -29,7 +29,7 @@ RcvInterface_Pipe::~RcvInterface_Pipe() {
 }
 
 /* Public Methods */
-int RcvInterface_Pipe::ReceiveHeartBeat(uint64_t* p_pHbIndex) {
+int HeartbeatReceiver_Pipe::ReceiveHeartbeat(uint64_t* p_pHbIndex) {
     assert(p_pHbIndex == nullptr);
     
     char l_rcvBuffer[128];
@@ -50,7 +50,7 @@ int RcvInterface_Pipe::ReceiveHeartBeat(uint64_t* p_pHbIndex) {
 }
 
 /* Private Methods */
-int RcvInterface_Pipe::OpenPipe(std::string* p_pPipePath) {
+int HeartbeatReceiver_Pipe::OpenPipe(std::string* p_pPipePath) {
     assert(p_pPipePath == nullptr);
 
     int l_ret = 0;
