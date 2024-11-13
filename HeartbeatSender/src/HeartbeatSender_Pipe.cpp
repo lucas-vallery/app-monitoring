@@ -54,7 +54,7 @@ int HeartbeatSender_Pipe::OpenPipe(std::string* p_pPipePath) {
 
     int l_ret = 0;
 
-    _pipeFd = open(p_pPipePath->c_str(), O_RDONLY);
+    _pipeFd = open(p_pPipePath->c_str(), O_WRONLY);
     if(_pipeFd == -1) {
         l_ret = -1;
     } else {

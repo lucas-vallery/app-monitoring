@@ -9,7 +9,7 @@
 #include <cstdlib>
 
 /* Constructor */
-HeartbeatReceiver_Pipe::HeartbeatReceiver_Pipe(std::string* p_pPipePath) {
+HeartbeatReceiver_Pipe::HeartbeatReceiver_Pipe(const std::string& p_pPipePath) {
     OpenPipe(p_pPipePath);
 }
 
@@ -50,12 +50,10 @@ int HeartbeatReceiver_Pipe::ReceiveHeartbeat(uint64_t* p_pHbIndex) {
 }
 
 /* Private Methods */
-int HeartbeatReceiver_Pipe::OpenPipe(std::string* p_pPipePath) {
-    assert(p_pPipePath == nullptr);
-
+int HeartbeatReceiver_Pipe::OpenPipe(const std::string& p_pPipePath) {
     int l_ret = 0;
 
-    _pipeFd = open(p_pPipePath->c_str(), O_RDONLY);
+    _pipeFd = open(p_pPipePath.c_str(), O_RDONLY);
     if(_pipeFd == -1) {
         l_ret = -1;
     } else {
