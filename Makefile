@@ -2,6 +2,9 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
 
+# Application name 
+APP_NAME = main
+
 # Directories
 SRCDIRS = ./HeartbeatReceiver/src ./
 BUILDDIR = ./build
@@ -12,7 +15,7 @@ SRC = $(wildcard $(addsuffix /*.cpp,$(SRCDIRS)))
 OBJ = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 
 # Final executable
-TARGET = $(BUILDDIR)/my_app
+TARGET = $(BUILDDIR)/$(APP_NAME)
 
 # Rule to create build directories and subdirectories 
 $(OBJDIR): 
