@@ -1,37 +1,37 @@
-# Define the compiler
+# Compiler
 CXX = g++
+CXXFLAGS = -Wall -std=c++17
 
-# Define the flags for the compiler
-CXXFLAGS = -Ihdr
+# Directories
+SRCDIRS = ./HeartbeatReceiver/src ./
+BUILDDIR = ./build
+OBJDIR = $(BUILDDIR)
 
-# Define the build directory variable 
-BUILD_DIR = build
+# Source files
+SRC = $(wildcard $(addsuffix /*.cpp,$(SRCDIRS)))
+OBJ = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 
-# Define the target executable
-TARGET = $(BUILD_DIR)/app-monitoring
+# Final executable
+TARGET = $(BUILDDIR)/my_app
 
-# Define the source and header files
-SRCS = $(wildcard *.cpp)
-HDRS = $(wildcard *.h)
+# Rule to create build directories and subdirectories 
+$(OBJDIR): 
+	mkdir -p $(OBJDIR) $(BUILDDIR) 
+	for dir in $(SRCDIRS); do \
+		mkdir -p $(OBJDIR)/$$dir;\
+	done
 
-# Define the object files
-OBJS = $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+# Rule to create object files
+$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Rule to link object files and create the final executable
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+# Clean up the build directory
+clean:
+	rm -rf $(BUILDDIR)
 
 # Default target
 all: $(TARGET)
-
-# Ensure the build directory exists
-$(BUILD_DIR):
-	@test -d $(BUILD_DIR) || mkdir -p $(BUILD_DIR)
-
-# Link the object files to create the executable
-$(TARGET): $(OBJS)
-	$(CXX) -o $@ $(OBJS) $(CXXFLAGS)
-
-# Compile the source files into object files
-build/%.o: %.cpp | $(BUILD_DIR)
-	$(CXX) -c $< -o $@ $(CXXFLAGS)
-
-# Clean the build directory
-clean:
-	rm -rf $(BUILD_DIR)
