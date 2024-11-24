@@ -1,12 +1,18 @@
-
 #include "HeartbeatReceiver/hdr/HeartbeatReceiverFactory.h"
 #include <iostream>
 #include <memory>
 
+#include <thread>
+#include <chrono>
+
 int main(void) {
+    uint64_t hbIndex = 0;
 
-    HeartbeatReceiverFactory::CreateReceiver("pipe", "tmp/pipe");
+    std::cout << "Hello Wolrd!" << std::endl;
 
-    std::cout << "Hello Wolrd!";
+    std::unique_ptr<HeartbeatReceiver> hbRcvPipe = HeartbeatReceiverFactory::CreateReceiver("pipe", "/tmp/mypipe");
+    //hbRcvPipe->ReceiveHeartbeat(&hbIndex);
+    
+
     return 0;
 }

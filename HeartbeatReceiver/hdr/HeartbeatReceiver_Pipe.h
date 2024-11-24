@@ -20,11 +20,12 @@ public:
 
 private:
     /* Private Methods */
-    int OpenPipe(const std::string& p_pPipePath);
-    int ReadPipe();
+    int CreatePipe();
+    int OpenPipe();
 
     /* Private Members */
     int _pipeFd;
+    std::string _pipePath;
 };
 
 #endif

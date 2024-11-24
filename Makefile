@@ -1,12 +1,15 @@
 # Compiler
 CXX = g++
-CXXFLAGS = -Wall -std=c++17
+CXXFLAGS = -Wall -std=c++17 -g
+
 
 # Application name 
 APP_NAME = main
 
 # Directories
-SRCDIRS = ./HeartbeatReceiver/src ./
+SRCDIRS = \
+	./HeartbeatReceiver/src\
+	./
 BUILDDIR = ./build
 OBJDIR = $(BUILDDIR)
 
