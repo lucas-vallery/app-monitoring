@@ -9,7 +9,8 @@
             "parameters": [
                 {
                     "name": "path",
-                    "type": "string"
+                    "type": "string", 
+                    "value": "/tmp/mypipe"
                 }
             ]
         }
