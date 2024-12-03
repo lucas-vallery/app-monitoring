@@ -4,6 +4,9 @@
 #include <string>
 #include <unistd.h>
 #include <vector>
+#include "../../json/include/nlohmann/json.hpp"
+
+using json = nlohmann::json;
 
 class EndpointParameter {
 public:
@@ -11,24 +14,40 @@ public:
     EndpointParameter() = default;
     EndpointParameter(const std::string p_name,
                       const std::string p_type,
-                      const std::string p_value) :
-                      _name(p_name),
-                      _type(p_type),
-                      _value(p_value) {}
+                      const std::string p_value);
 
     /* Getters and Setters */
     std::string GetName();
     std::string GetType();
-    std::string GetValue();
-    void SetName(std::string p_name);
-    void SetType(std::string p_type);
-    void SetValue(std::string p_value);
+    template<typename type>
+    type GetValue();
+    void SetName(const std::string& p_name);
+    void SetType(const std::string& p_type);
+    void SetValue(const std::string& p_value);
+
+    /* Public Methods */
+    int FromJson(const json& j);
 
 private:
-    /* Pruvate members */
+    /* Private Members */
     std::string _name;
     std::string _type;
-    std::string _value;
+    union { 
+        std::string* _string; 
+        uint8_t _uint8; 
+        uint16_t _uint16;
+        uint32_t _uint32;
+        uint64_t _uint64;
+        int8_t _int8;
+        int16_t _int16;
+        int32_t _int32;
+        int64_t _int64;
+        bool _bool;
+    };
+
+    /* Private Methods */
+    void StringToData(const std::string& p_str);
+    
 
 };
 

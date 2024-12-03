@@ -8,6 +8,7 @@ APP_NAME = main
 # Directories
 SRCDIRS = \
 	HeartbeatReceiver/src\
+	HeartbeatEndpoint/src\
 	.
 BUILDDIR = ./build
 OBJDIR = $(BUILDDIR)
