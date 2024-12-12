@@ -35,7 +35,7 @@ HeartbeatReceiver_Pipe::~HeartbeatReceiver_Pipe() {
 }
 
 /* Public Methods */
-int HeartbeatReceiver_Pipe::ReceiveHeartbeat(uint64_t* p_pHbIndex) {
+int HeartbeatReceiver_Pipe::CheckHeartbeat(uint64_t* p_pHbIndex) {
     assert(p_pHbIndex != nullptr);
     
     char l_rcvBuffer[128];

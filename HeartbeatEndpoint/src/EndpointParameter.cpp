@@ -2,9 +2,9 @@
 #include "../hdr/EndpointParameter.h"
 
 /* Constructor */
-EndpointParameter::EndpointParameter(const std::string p_name,
-                                     const std::string p_type,
-                                     const std::string p_value):
+EndpointParameter::EndpointParameter(const std::string& p_name,
+                                     const std::string& p_type,
+                                     const std::string& p_value):
                                      _name(p_name),
                                      _type(p_type)
 {
@@ -12,56 +12,56 @@ EndpointParameter::EndpointParameter(const std::string p_name,
 }
 
 /* Getters and Setters */
-std::string EndpointParameter::GetName() {
+std::string EndpointParameter::GetName() const {
     return _name;
 }
 
-std::string EndpointParameter::GetType() {
+std::string EndpointParameter::GetType() const {
     return _type;
 }
 
 template<>
-std::string EndpointParameter::GetValue<std::string>() {
+std::string EndpointParameter::GetValue<std::string>() const {
     return *_string;
 }
 
 template<>
-uint8_t EndpointParameter::GetValue<uint8_t>() {
+uint8_t EndpointParameter::GetValue<uint8_t>() const {
     return _uint8;
 }
 
 template<>
-uint16_t EndpointParameter::GetValue<uint16_t>() {
+uint16_t EndpointParameter::GetValue<uint16_t>() const {
     return _uint16;
 }
 
 template<>
-uint32_t EndpointParameter::GetValue<uint32_t>() {
+uint32_t EndpointParameter::GetValue<uint32_t>() const {
     return _uint32;
 }
 
 template<>
-uint64_t EndpointParameter::GetValue<uint64_t>() {
+uint64_t EndpointParameter::GetValue<uint64_t>() const {
     return _uint64;
 }
 
 template<>
-int8_t EndpointParameter::GetValue<int8_t>() {
+int8_t EndpointParameter::GetValue<int8_t>() const {
     return _int8;
 }
 
 template<>
-int16_t EndpointParameter::GetValue<int16_t>() {
+int16_t EndpointParameter::GetValue<int16_t>() const {
     return _int16;
 }
 
 template<>
-int32_t EndpointParameter::GetValue<int32_t>() {
+int32_t EndpointParameter::GetValue<int32_t>() const {
     return _int32;
 }
 
 template<>
-int64_t EndpointParameter::GetValue<int64_t>() {
+int64_t EndpointParameter::GetValue<int64_t>() const {
     return _int64;
 }
 
@@ -84,9 +84,9 @@ int EndpointParameter::FromJson(const json& p_json) {
         return -1;
     }
 
-    SetName(p_json.at("name").get<std::string>());
-    SetType(p_json.at("type").get<std::string>());
-    SetValue(p_json.at("value").get<std::string>());
+    _name = p_json.at("name").get<std::string>();
+    _type = p_json.at("type").get<std::string>();
+    StringToData(p_json.at("value").get<std::string>());
     return 0;
 }
 

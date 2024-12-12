@@ -3,7 +3,6 @@
 
 #include <string>
 #include <unistd.h>
-#include <vector>
 #include "../../json/include/nlohmann/json.hpp"
 
 using json = nlohmann::json;
@@ -12,15 +11,15 @@ class EndpointParameter {
 public:
     /* Constructors */
     EndpointParameter() = default;
-    EndpointParameter(const std::string p_name,
-                      const std::string p_type,
-                      const std::string p_value);
+    EndpointParameter(const std::string& p_name,
+                      const std::string& p_type,
+                      const std::string& p_value);
 
     /* Getters and Setters */
-    std::string GetName();
-    std::string GetType();
+    std::string GetName() const;
+    std::string GetType() const;
     template<typename type>
-    type GetValue();
+    type GetValue() const;
     void SetName(const std::string& p_name);
     void SetType(const std::string& p_type);
     void SetValue(const std::string& p_value);

@@ -6,7 +6,7 @@
 class HeartbeatReceiver {
 public:
     virtual ~HeartbeatReceiver() {};
-    virtual int ReceiveHeartbeat(uint64_t* p_pHbIndex) = 0;
+    virtual int CheckHeartbeat(uint64_t* p_pHbIndex);
 };
 
 #endif

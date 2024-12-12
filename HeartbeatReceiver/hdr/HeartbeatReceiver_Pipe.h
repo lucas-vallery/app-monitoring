@@ -16,7 +16,7 @@ public:
     ~HeartbeatReceiver_Pipe() override;
 
     /* Public Methods */
-    int ReceiveHeartbeat(uint64_t* p_pHbIndex) override;
+    int CheckHeartbeat(uint64_t* p_pHbIndex) override;
 
 private:
     /* Private Methods */

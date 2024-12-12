@@ -61,10 +61,10 @@ int main(int argc, char *argv[]) {
     EndpointParameter newParam;
         
     newParam.SetName("name");
-    newParam.SetType("uint64");
+    newParam.SetType("uint8");
     newParam.SetValue("1279");
 
-    std::cout << std::to_string(newParam.GetValue<uint64_t>()) << std::endl;
+    std::cout << std::to_string(newParam.GetValue<uint8_t>()) << std::endl;
    
     return 0;
 }
